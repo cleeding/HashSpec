@@ -1,0 +1,22 @@
+{
+  "OrderId": 101,
+  "Customer": {
+    "Name": "Jane Doe",
+    "Email": "jane@example.com"
+  },
+  "Items": [
+    {
+      "SKU": "ABC",
+      "Qty": 1,
+      "Price": 50.0
+    },
+    {
+      "SKU": "XYZ",
+      "Qty": 2,
+      "Price": 25.0
+    }
+  ],
+  "Metadata": {
+    "Source": "Web"
+  }
+}

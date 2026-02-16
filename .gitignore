@@ -1,0 +1,36 @@
+## --- HashSpec Specifics ---
+# We commit /Specs/ because they are the "Source of Truth"
+# But we ignore the Artifacts folder where failure diffs are saved
+**/Artifacts/
+**/TestResults/
+
+## --- .NET / Visual Studio ---
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ReSharper / Rider / Visual Studio personal settings
+.idea/
+.vs/
+*.dotCover
+
+## --- Selenium / WebDrivers ---
+# We don't want to commit the actual .exe drivers to the repo
+*.exe
+*.dll
+!src/**/*.dll
+chromedriver
+geckodriver
+IEDriverServer
+msedgedriver
+
+## --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+## --- User Secrets & Local Config ---
+appsettings.Development.json
+.env

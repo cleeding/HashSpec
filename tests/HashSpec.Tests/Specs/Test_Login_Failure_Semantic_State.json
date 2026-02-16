@@ -1,0 +1,9 @@
+{
+  "ErrorMessage": "Your password is invalid!\n×",
+  "PageHeader": "Login Page",
+  "SubmitButton": {
+    "Text": "Login",
+    "Enabled": true,
+    "Selected": false
+  }
+}

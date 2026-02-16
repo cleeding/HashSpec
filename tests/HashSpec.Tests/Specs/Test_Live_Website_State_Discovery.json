@@ -1,0 +1,9 @@
+{
+  "PageTitle": "Login Page",
+  "LoginButton": {
+    "Text": "Login",
+    "Enabled": true,
+    "Selected": false
+  },
+  "UsernameField": ""
+}
