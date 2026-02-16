@@ -1,0 +1,26 @@
+[
+  {
+    "Text": "Delete",
+    "Enabled": true,
+    "Selected": false,
+    "Metadata": {
+      "type": "submit"
+    }
+  },
+  {
+    "Text": "Delete",
+    "Enabled": true,
+    "Selected": false,
+    "Metadata": {
+      "type": "submit"
+    }
+  },
+  {
+    "Text": "Delete",
+    "Enabled": true,
+    "Selected": false,
+    "Metadata": {
+      "type": "submit"
+    }
+  }
+]

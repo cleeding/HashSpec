@@ -4,9 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <Version>0.1.0</Version>
+    <Version>0.1.0</Version>
     <Authors>Connor Leeding</Authors>
     <Title>HashSpec</Title>
     <Description>Beyond manual assertions: HashSpec is a behavioral integrity framework for .NET that treats application state as a deterministic snapshot.</Description>

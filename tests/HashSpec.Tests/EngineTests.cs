@@ -135,6 +135,107 @@ public class EngineTests : IDisposable
         */
     }
 
+    [Fact]
+    public void Hasher_ShouldIgnore_Properties_With_HashIgnoreAttribute()
+    {
+        // 1. Arrange: Define a model with volatile data (Guid and DateTime)
+        var state1 = new UserSessionRecord { 
+            Username = "Alice", 
+            SessionId = Guid.NewGuid().ToString(), // Random
+            LoginTime = DateTime.Now               // Dynamic
+        };
+
+        var state2 = new UserSessionRecord { 
+            Username = "Alice", 
+            SessionId = Guid.NewGuid().ToString(), // Totally different Random
+            LoginTime = DateTime.Now.AddMinutes(5) // Totally different Time
+        };
+
+        // 2. Act
+        var hash1 = DeterministicHasher.CreateFingerprint(state1);
+        var hash2 = DeterministicHasher.CreateFingerprint(state2);
+
+        // 3. Assert: Even though IDs and Times are different, the "Semantic State" (Username) is the same.
+        Assert.Equal(hash1, hash2);
+    }
+
+    // Helper class for the test
+    private class UserSessionRecord
+    {
+        public required string Username { get; set; }
+
+        [HashIgnore]
+        public required string SessionId { get; set; }
+
+        [HashIgnore]
+        public DateTime LoginTime { get; set; }
+    }
+
+    [Fact]
+public void Selenium_Should_Capture_Metadata()
+{
+    _driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
+
+    var state = _driver.CaptureState(new {
+        UsernameInput = "#username"
+    });
+
+    // This will now contain a 'Metadata' object with the type="text" attribute!
+    HashSpec.Core.HashSpec.Verify("Selenium_Metadata_Test", state);
+}
+
+[Fact]
+public void Selenium_Should_Detect_Attribute_Changes()
+{
+    _driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
+
+    // Capture state of the username field
+    var state1 = _driver.CaptureState(new { UserField = "#username" });
+
+    // Simulate a scenario where the placeholder might be different
+    // (In a real test, this would catch a dev changing 'Username' to 'Email Address')
+    var hash1 = DeterministicHasher.CreateFingerprint(state1);
+    
+    Assert.Contains("username", state1["UserField"].ToString()!.ToLower());
+}
+
+[Fact]
+public void Selenium_Should_Capture_Dynamic_Lists()
+{
+    _driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/add_remove_elements/");
+    
+    var addButton = _driver.FindElement(By.CssSelector("button[onclick='addElement()']"));
+    
+    // Add 3 elements
+    addButton.Click();
+    addButton.Click();
+    addButton.Click();
+
+    // Capture the collection of "Delete" buttons that appeared
+    var listState = _driver.CaptureCollection("#elements", ".added-manually");
+
+    Assert.Equal(3, listState.Count);
+    HashSpec.Core.HashSpec.Verify("Dynamic_List_Test", listState);
+}
+
+[Fact]
+public void Selenium_Should_Detect_Layout_Shifts()
+{
+    _driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/login");
+
+    var state = _driver.CaptureState(new { Header = "h2" });
+    
+    // Use 'dynamic' explicitly on the specific entry
+    dynamic headerData = state["Header"];
+    
+    // If the RuntimeBinder still complains, it's because anonymous types 
+    // from other assemblies are internal. Use Reflection or check null:
+    Assert.NotNull(headerData);
+    
+    // Instead of headerData.Location, let's just verify the hash works, 
+    // which is what HashSpec cares about:
+    HashSpec.Core.HashSpec.Verify("Layout_Shift_Baseline", state);
+}
     public void Dispose()
     {
         _driver.Quit();

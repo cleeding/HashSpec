@@ -1,9 +1,34 @@
 {
-  "ErrorMessage": "Your password is invalid!\n×",
-  "PageHeader": "Login Page",
+  "ErrorMessage": {
+    "Text": "Your password is invalid!\n×",
+    "Location": {
+      "X": 15,
+      "Y": 32
+    },
+    "Size": {
+      "Width": 726,
+      "Height": 36
+    },
+    "Metadata": {}
+  },
+  "PageHeader": {
+    "Text": "Login Page",
+    "Location": {
+      "X": 15,
+      "Y": 91
+    },
+    "Size": {
+      "Width": 726,
+      "Height": 33
+    },
+    "Metadata": {}
+  },
   "SubmitButton": {
     "Text": "Login",
     "Enabled": true,
-    "Selected": false
+    "Selected": false,
+    "Metadata": {
+      "type": "submit"
+    }
   }
 }

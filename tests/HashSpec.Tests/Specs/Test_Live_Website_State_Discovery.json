@@ -1,9 +1,29 @@
 {
-  "PageTitle": "Login Page",
+  "PageTitle": {
+    "Text": "Login Page",
+    "Location": {
+      "X": 15,
+      "Y": 37
+    },
+    "Size": {
+      "Width": 726,
+      "Height": 33
+    },
+    "Metadata": {}
+  },
   "LoginButton": {
     "Text": "Login",
     "Enabled": true,
-    "Selected": false
+    "Selected": false,
+    "Metadata": {
+      "type": "submit"
+    }
   },
-  "UsernameField": ""
+  "UsernameField": {
+    "Value": "",
+    "Metadata": {
+      "type": "text"
+    },
+    "IsDisplayed": true
+  }
 }
